@@ -1,5 +1,8 @@
 package lowlevel;
 
+import parser.CodeGenerationException;
+
+
 /**
  * This class supports a linked list of function formal parameters.
  *
@@ -88,7 +91,7 @@ public class FuncParam {
     // this method is used during printing of FuncParams.  It assumes there are
     // only INT and VOID types; it will need to be restructured a bit to allow
     // further types
-  public String printType() {
+  public String printType() throws CodeGenerationException {
     if (dataType == Data.TYPE_VOID) {
       return "void";
     }

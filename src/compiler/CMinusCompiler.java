@@ -1,7 +1,10 @@
 package compiler;
 
+
+
 import x64codegen.X64AssemblyGenerator;
 import parser.*;
+import scanner.*;
 import lowlevel.*;
 import java.util.*;
 import java.io.*;
@@ -25,7 +28,7 @@ public class CMinusCompiler implements Compiler {
         return genX64Code;
     }
 
-    public void compile(String filePrefix) {
+    public void compile(String filePrefix) throws CodeGenerationException, ParseException, DFAException {
 
         String fileName = filePrefix + ".c";
         try {
@@ -123,7 +126,7 @@ public class CMinusCompiler implements Compiler {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         String filePrefix = "test5";
         CMinusCompiler myCompiler = new CMinusCompiler();
         myCompiler.setGenX64Code(true);

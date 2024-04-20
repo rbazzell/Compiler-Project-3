@@ -2,6 +2,7 @@ package lowlevel;
 
 import java.io.*;
 import dataflow.BitArraySet;
+import parser.CodeGenerationException;
 
 /**
  * This class is the primary low-level abstraction for an assembly instruction
@@ -23,6 +24,7 @@ import dataflow.BitArraySet;
  * block can contain a list of Operations.  The Operation also maintains sets
  * of Operands.  To keep it general, we employ arrays of src and dest Operands.
  */
+
 
 public class Operation {
 
@@ -312,7 +314,7 @@ public class Operation {
   }
 
     // prints the Operation, recursively calling print on each Operand
-  public void printLLCode(PrintWriter outFile) {
+  public void printLLCode(PrintWriter outFile) throws CodeGenerationException {
     if (outFile == null) {
       System.out.print("    (OPER " + this.getNum() + " " + printOperType() + " [");
       for (int currDest = 0; currDest <= maxDest; currDest++) {

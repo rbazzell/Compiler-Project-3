@@ -1,4 +1,6 @@
-package src.parser;
+package parser;
+
+import lowlevel.CodeItem;
 
 public class Param {
 
@@ -18,5 +20,11 @@ public class Param {
         }
         printString += "\n";
         return printString;
+    }
+
+    public CodeItem genLLCode(){
+
+        return null;
+
     }
 }

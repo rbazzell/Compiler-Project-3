@@ -1,4 +1,4 @@
-package src.scanner;
+package scanner;
 
 public class DFAException extends Exception {
     public DFAException(String errorString) {

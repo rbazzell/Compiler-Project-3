@@ -1,4 +1,5 @@
-package src.parser;
+package parser;
+import lowlevel.CodeItem;
 
 public class VariableDeclaration extends Declaration {
 
@@ -16,5 +17,11 @@ public class VariableDeclaration extends Declaration {
             printStr += "[" + num + "]";
         }
         return printStr + "\n";
+    }
+
+    public CodeItem genLLCode(){
+
+        return null;
+
     }
 }

@@ -1,4 +1,4 @@
-package src.scanner;
+package scanner;
 
 import java.io.IOException;
 

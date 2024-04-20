@@ -1,4 +1,6 @@
-package src.parser;
+package parser;
+
+import lowlevel.CodeItem;
 
 public class IterationStatement extends Statement {
 
@@ -15,5 +17,11 @@ public class IterationStatement extends Statement {
         printStr += expr.print(indent + 1);
         printStr += stmt.print(indent + 1);
         return printStr;
+    }
+
+    public CodeItem genLLCode(){
+
+        return null;
+
     }
 }

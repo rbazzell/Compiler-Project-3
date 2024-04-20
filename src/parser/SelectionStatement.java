@@ -1,4 +1,5 @@
-package src.parser;
+package parser;
+import lowlevel.CodeItem;
 
 public class SelectionStatement extends Statement {
 
@@ -21,5 +22,11 @@ public class SelectionStatement extends Statement {
             printStr += elseStmt.print(indent + 1);
         }
         return printStr;
+    }
+
+    public CodeItem genLLCode(){
+
+        return null;
+
     }
 }

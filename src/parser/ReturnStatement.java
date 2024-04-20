@@ -1,4 +1,5 @@
-package src.parser;
+package parser;
+import lowlevel.CodeItem;
 
 public class ReturnStatement extends Statement {
 
@@ -15,5 +16,11 @@ public class ReturnStatement extends Statement {
             printString += expr.print(indent + 1);
         }
         return printString;
+    }
+
+    public CodeItem genLLCode(){
+
+        return null;
+
     }
 }

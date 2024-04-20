@@ -1,4 +1,6 @@
-package src.parser;
+package parser;
+
+import lowlevel.CodeItem;
 
 public class IDExpression extends Expression {
 
@@ -20,5 +22,11 @@ public class IDExpression extends Expression {
             printString += "\n";
         }
         return printString;
+    }
+
+    public CodeItem genLLCode(){
+
+        return null;
+
     }
 }

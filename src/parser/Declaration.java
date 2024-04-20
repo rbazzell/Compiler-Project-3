@@ -1,4 +1,6 @@
-package src.parser;
+package parser;
+
+import lowlevel.CodeItem;
 
 public abstract class Declaration {
 
@@ -8,4 +10,6 @@ public abstract class Declaration {
      }
 
      public abstract String print(int indent);
+
+     public abstract CodeItem genLLCode();
 }

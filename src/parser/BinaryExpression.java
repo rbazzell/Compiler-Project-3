@@ -1,4 +1,7 @@
-package src.parser;
+package parser;
+
+import lowlevel.CodeItem;
+import lowlevel.CodeItem;
 
 public class BinaryExpression extends Expression {
 
@@ -50,5 +53,11 @@ public class BinaryExpression extends Expression {
         printString += rhs.print(indent + 1);
         
         return printString;
+    }
+
+    public CodeItem genLLCode(){
+
+        return null;
+
     }
 }

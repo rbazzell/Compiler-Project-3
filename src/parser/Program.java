@@ -1,6 +1,7 @@
-package src.parser;
+package parser;
 
 import java.util.ArrayList;
+import lowlevel.CodeItem;
 
 public class Program {
 
@@ -16,5 +17,11 @@ public class Program {
             printStr += decl.print(indent + 1);
         }
         return printStr;
+    }
+
+    public CodeItem genLLCode(){
+
+        return null;
+
     }
 }

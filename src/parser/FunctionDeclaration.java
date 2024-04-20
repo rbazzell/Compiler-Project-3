@@ -1,6 +1,7 @@
-package src.parser;
+package parser;
 
 import java.util.ArrayList;
+import lowlevel.CodeItem;
 
 public class FunctionDeclaration extends Declaration {
 
@@ -25,4 +26,12 @@ public class FunctionDeclaration extends Declaration {
         printStr += stmt.print(indent + 1);
         return printStr;
     }
+
+    public CodeItem genLLCode(){
+
+        return null;
+
+    }
 }
+
+

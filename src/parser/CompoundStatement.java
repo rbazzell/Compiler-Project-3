@@ -1,6 +1,7 @@
-package src.parser;
+package parser;
 
 import java.util.ArrayList;
+import lowlevel.CodeItem;
 
 public class CompoundStatement extends Statement {
 
@@ -26,4 +27,11 @@ public class CompoundStatement extends Statement {
         } 
         return printStr;
     }
+
+    public CodeItem genLLCode(){
+
+        return null;
+
+    }
+
 }

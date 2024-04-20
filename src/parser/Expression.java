@@ -1,4 +1,6 @@
-package src.parser;
+package parser;
+
+import lowlevel.CodeItem;
 
 public abstract class Expression {
 
@@ -16,4 +18,6 @@ public abstract class Expression {
     };
 
     public abstract String print(int indent);
+
+    public abstract CodeItem genLLCode();
 }

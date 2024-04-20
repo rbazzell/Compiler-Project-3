@@ -1,6 +1,7 @@
-package src.parser;
+package parser;
 
 import java.util.ArrayList;
+import lowlevel.CodeItem;
 
 public class CallExpression extends Expression {
 
@@ -20,4 +21,11 @@ public class CallExpression extends Expression {
         }
         return printStr;
     }
+
+    public CodeItem genLLCode(){
+
+        return null;
+
+    }
+
 }

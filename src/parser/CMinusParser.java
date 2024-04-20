@@ -1,4 +1,4 @@
-package src.parser;
+package parser;
 
 import java.io.IOException;
 import java.io.BufferedWriter;
@@ -6,15 +6,15 @@ import java.io.FileWriter;
 
 import java.util.ArrayList;
 
-import src.scanner.CMinusScanner2;
-import src.scanner.DFAException;
-import src.scanner.Token;
-import src.scanner.Token.TokenType;
+import scanner.CMinusScanner2;
+import scanner.DFAException;
+import scanner.Token;
+import scanner.Token.TokenType;
 
-import src.parser.Expression.Operator;
-import src.parser.Declaration.typeSpecifier;
+import parser.Expression.Operator;
+import parser.Declaration.typeSpecifier;
 
-public class CMinusParser {
+public class CMinusParser implements Parser {
     private CMinusScanner2 scanner;
     private Token currToken;
 
@@ -736,15 +736,15 @@ public class CMinusParser {
         return args;
     }
 
-    public static void printTree(Program head) {
-        printTree(head, false, "");
+    public void printAST(Program head) {
+        printAST(head, false, "");
     }
 
-    public static void printTree(Program head, String filename) {
-        printTree(head, true, filename);
+    public void printAST(Program head, String filename) {
+        printAST(head, true, filename);
     }
 
-    private static void printTree(Program head, boolean toFile, String filename) {
+    private void printAST(Program head, boolean toFile, String filename) {
         String output = head.print(0);
         if (toFile) {
             try {
@@ -763,6 +763,6 @@ public class CMinusParser {
         String filename_prefix = "code/parse3";
         CMinusParser parser = new CMinusParser(filename_prefix + ".cm");
         Program head = parser.parse();
-        printTree(head, filename_prefix + ".ast");
+        parser.printAST(head, filename_prefix + ".ast");
     }
 }

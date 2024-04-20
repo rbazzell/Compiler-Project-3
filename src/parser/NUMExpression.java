@@ -1,4 +1,6 @@
-package src.parser;
+package parser;
+
+import lowlevel.CodeItem;
 
 public class NUMExpression extends Expression {
 
@@ -13,4 +15,11 @@ public class NUMExpression extends Expression {
         printString += num + "\n";
         return printString;
     }
+
+    public CodeItem genLLCode(){
+
+        return null;
+
+    }
+
 }

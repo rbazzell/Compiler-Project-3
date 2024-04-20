@@ -1,4 +1,4 @@
-package src.scanner;
+package scanner;
 
 public class Token {
     public enum TokenType {
