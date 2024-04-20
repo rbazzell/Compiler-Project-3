@@ -1,5 +1,5 @@
 package parser;
-import lowlevel.CodeItem;
+import lowlevel.Function;
 
 public class ReturnStatement extends Statement {
 
@@ -18,9 +18,9 @@ public class ReturnStatement extends Statement {
         return printString;
     }
 
-    public CodeItem genLLCode(){
+    public void genLLCode(Function currFunc) throws CodeGenerationException{
 
-        return null;
+        return;
 
     }
 }

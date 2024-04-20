@@ -1,7 +1,7 @@
 package parser;
 
 import java.util.ArrayList;
-import lowlevel.CodeItem;
+import lowlevel.Function;
 
 public class CompoundStatement extends Statement {
 
@@ -28,10 +28,19 @@ public class CompoundStatement extends Statement {
         return printStr;
     }
 
-    public CodeItem genLLCode(){
+    public void genLLCode(Function currFunc) throws CodeGenerationException{
 
-        return null;
+        //Fills the local symbol table
+        for(int i = 0; i < localDecls.size(); i++){
+            localDecls.get(i).genLLCode(currFunc);
+        }
 
+        //The statements inside will generate and append to currFunction properly
+        //So no magic needed here
+        for(int i = 0; i < stmtList.size(); i++){
+            stmtList.get(i).genLLCode(currFunc);
+        }
+        return;
     }
 
 }

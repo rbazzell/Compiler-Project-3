@@ -1,9 +1,11 @@
 package parser;
 
-import lowlevel.CodeItem;
+import lowlevel.Function;
+import lowlevel.Operation;
 
 public abstract class Expression {
 
+    public int regNum;
     public static enum Operator {
         LTE,
         LT,
@@ -19,5 +21,5 @@ public abstract class Expression {
 
     public abstract String print(int indent);
 
-    public abstract CodeItem genLLCode();
+    public abstract Operation genLLCode(Function currFunc) throws CodeGenerationException;
 }

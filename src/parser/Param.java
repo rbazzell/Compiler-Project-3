@@ -1,6 +1,7 @@
 package parser;
 
-import lowlevel.CodeItem;
+import lowlevel.Data;
+import lowlevel.FuncParam;
 
 public class Param {
 
@@ -22,9 +23,7 @@ public class Param {
         return printString;
     }
 
-    public CodeItem genLLCode(){
-
-        return null;
-
+    public FuncParam genLLCode() throws CodeGenerationException{
+        return new FuncParam(Data.TYPE_INT, idStr, hasBrackets);
     }
 }

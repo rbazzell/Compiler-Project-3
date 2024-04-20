@@ -96,7 +96,7 @@ public class X86CodeGenerator {
 
     Function func = block.getFunc();
     int paramOffset = FIRST_PARAM_OFFSET ;
-    for (FuncParam currParam = func.getfirstParam(); currParam != null;
+    for (FuncParam currParam = func.getFirstParam(); currParam != null;
          currParam = currParam.getNextParam()) {
       String name = currParam.getName();
       int regNum = ( (Integer) func.getTable().get(name)).intValue();

@@ -1,5 +1,8 @@
 package parser;
-import lowlevel.CodeItem;
+import lowlevel.Data;
+import compiler.CMinusCompiler;
+import lowlevel.Function;
+
 
 public class VariableDeclaration extends Declaration {
 
@@ -19,9 +22,18 @@ public class VariableDeclaration extends Declaration {
         return printStr + "\n";
     }
 
-    public CodeItem genLLCode(){
-
-        return null;
+    public Data genLLCode(Function currFunc) throws CodeGenerationException{
+        if(currFunc != null){
+            //add to local symbol table
+            currFunc.getTable().put(id.hashCode(), currFunc.getNewRegNum());
+            //TODO: Maybe mess with VarSize???????
+            //currFunc.setVarSize(currFunc.getVarSize() + 1);
+            return null;
+        }else{
+            //add to global symbol table and return a Data object
+            CMinusCompiler.globalSymbolTable.add(id.hashCode());
+            return new Data(Data.TYPE_INT, id, (num != 0), num);
+        }
 
     }
 }

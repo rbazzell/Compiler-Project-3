@@ -19,9 +19,13 @@ public class Program {
         return printStr;
     }
 
-    public CodeItem genLLCode(){
-
-        return null;
-
+    public CodeItem genLLCode() throws CodeGenerationException {
+        CodeItem head = decls.get(0).genLLCode(null);
+        CodeItem curr = head;
+        for (int i = 1; i < decls.size(); i++) {
+            curr.setNextItem(decls.get(i).genLLCode(null));
+            curr = curr.getNextItem();
+        }
+        return head;
     }
 }

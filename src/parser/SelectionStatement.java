@@ -1,5 +1,6 @@
 package parser;
-import lowlevel.CodeItem;
+import lowlevel.Function;
+import lowlevel.BasicBlock;
 
 public class SelectionStatement extends Statement {
 
@@ -24,9 +25,29 @@ public class SelectionStatement extends Statement {
         return printStr;
     }
 
-    public CodeItem genLLCode(){
+    public void genLLCode(Function currFunc) throws CodeGenerationException{
+        
+        //Step 1: Creat Basic Blocks for Then, Post, and Else
+        BasicBlock thenBlock = new BasicBlock(currFunc);
+        BasicBlock postBlock = new BasicBlock(currFunc);
+        BasicBlock elseBlock = null;
+        if(elseStmt != null){
+            elseBlock = new BasicBlock(currFunc);
+        }
+        //Step 2: Call genLLCode on the expression
+        thenBlock.appendOper(expr.genLLCode(currFunc));
 
-        return null;
+        //Step 3: Add Branch to currBlock
+        //Step 4: Appen thenBlock to the BB chain
+        //Step 5: currBlock = thenBlock
+        //Step 6: codeGen thenBlock
+        //Step 7: Append postBlock to the BB chain
+        //Step 8: currBlock = elseBlock
+        //Step 9: codeGen elseBlock
+        //Step 10: Append JMP-to-postBlock stmt to elseBlock
+        //Step 11: Add elseBlock to UC
+        //Step 12: currBlock = postBlock
+        return;
 
     }
 }

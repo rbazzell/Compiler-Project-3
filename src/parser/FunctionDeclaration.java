@@ -1,7 +1,8 @@
 package parser;
 
 import java.util.ArrayList;
-import lowlevel.CodeItem;
+import lowlevel.Function;
+import lowlevel.FuncParam;
 
 public class FunctionDeclaration extends Declaration {
 
@@ -27,9 +28,32 @@ public class FunctionDeclaration extends Declaration {
         return printStr;
     }
 
-    public CodeItem genLLCode(){
+    //only null will ever be passed here
+    public Function genLLCode(Function currFunc) throws CodeGenerationException {
+        if(currFunc != null){
+            throw new CodeGenerationException("FunctionDeclaration::genLLCode(): currFunc not null");
+        }
 
-        return null;
+        //Generate parameter linked list
+        FuncParam headParam = null;
+        if(params.size() != 0) {
+            headParam = params.get(0).genLLCode();
+            FuncParam currParam = headParam;
+            for (int i = 1; i < params.size(); i++) {
+                currParam.setNextParam(params.get(i).genLLCode());
+                currParam = currParam.getNextParam();
+            }
+        }
+
+        //Generate function
+        Function func = new Function(typeSpec.ordinal(), id, headParam);
+        
+        func.createBlock0();
+        func.setCurrBlock(func.getFirstBlock());
+        stmt.genLLCode(currFunc);
+        //TODO: Might need to do some setup or something weird to make genReturnBlock work. If problems ask Dr. G
+        func.genReturnBlock();
+        return func;
 
     }
 }

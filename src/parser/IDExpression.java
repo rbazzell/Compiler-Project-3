@@ -1,6 +1,11 @@
 package parser;
 
-import lowlevel.CodeItem;
+import compiler.CMinusCompiler;
+import lowlevel.Function;
+import lowlevel.Operation;
+import lowlevel.Operation.OperationType;
+import lowlevel.Operand;
+import lowlevel.Operand.OperandType;
 
 public class IDExpression extends Expression {
 
@@ -24,9 +29,32 @@ public class IDExpression extends Expression {
         return printString;
     }
 
-    public CodeItem genLLCode(){
+    //idexpr.genCode is only called
+    public Operation genLLCode(Function currFunc) throws CodeGenerationException{
+        Operation loadOp = null;
+        
+        if (CMinusCompiler.globalSymbolTable.contains(idStr.hashCode())) {
+            //In the global symbol table
+            regNum = currFunc.getNewRegNum();
+            
+            //Generate a load operation & append to current block
+            Operand operand = new Operand(OperandType.STRING, idStr);
+            Operand dest = new Operand(OperandType.REGISTER, regNum);
+            loadOp = new Operation(OperationType.LOAD_I, currFunc.getCurrBlock());
+            loadOp.setSrcOperand(0, operand);
+            loadOp.setDestOperand(0, dest);
 
+            currFunc.getCurrBlock().appendOper(loadOp);
+
+        } else if (currFunc.getTable().containsKey(idStr.hashCode())) {
+            //In the local symbol table
+            regNum = currFunc.getNewRegNum();
+
+        } else {
+            //Not in global or local symbol table
+            throw new CodeGenerationException("IDExpression.genLLCode(): ID not found in global or local symbol table!");
+        }
+        //Don't have to return anything because IDExpr creates its own load or makes no op
         return null;
-
     }
 }

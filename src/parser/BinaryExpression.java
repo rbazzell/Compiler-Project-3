@@ -1,7 +1,7 @@
 package parser;
 
-import lowlevel.CodeItem;
-import lowlevel.CodeItem;
+import lowlevel.Function;
+import lowlevel.Operation;
 
 public class BinaryExpression extends Expression {
 
@@ -55,7 +55,7 @@ public class BinaryExpression extends Expression {
         return printString;
     }
 
-    public CodeItem genLLCode(){
+    public Operation genLLCode(Function currFunc) throws CodeGenerationException{
 
         return null;
 

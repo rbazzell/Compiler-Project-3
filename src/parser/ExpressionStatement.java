@@ -1,6 +1,6 @@
 package parser;
 
-import lowlevel.CodeItem;
+import lowlevel.Function;
 
 public class ExpressionStatement extends Statement {
 
@@ -18,9 +18,11 @@ public class ExpressionStatement extends Statement {
         return printStr;
     }
 
-    public CodeItem genLLCode(){
-
-        return null;
+    public void genLLCode(Function currFunc) throws CodeGenerationException{
+        if (expr != null) {
+            currFunc.getCurrBlock().appendOper(expr.genLLCode(currFunc));
+        }
+        return;
 
     }
 }

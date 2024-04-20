@@ -1,6 +1,7 @@
 package parser;
 
-import lowlevel.CodeItem;
+import lowlevel.Function;
+import lowlevel.Operation;
 
 public class NUMExpression extends Expression {
 
@@ -16,7 +17,7 @@ public class NUMExpression extends Expression {
         return printString;
     }
 
-    public CodeItem genLLCode(){
+    public Operation genLLCode(Function currFunc) throws CodeGenerationException{
 
         return null;
 

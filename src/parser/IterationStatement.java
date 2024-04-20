@@ -1,6 +1,6 @@
 package parser;
 
-import lowlevel.CodeItem;
+import lowlevel.Function;
 
 public class IterationStatement extends Statement {
 
@@ -19,9 +19,9 @@ public class IterationStatement extends Statement {
         return printStr;
     }
 
-    public CodeItem genLLCode(){
+    public void genLLCode(Function currFunc) throws CodeGenerationException{
 
-        return null;
+        return;
 
     }
 }

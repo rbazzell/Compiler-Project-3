@@ -15,7 +15,7 @@ import dataflow.*;
 
 public class CMinusCompiler implements Compiler {
 
-    public static HashMap globalHash = new HashMap();
+    public static HashSet<Integer> globalSymbolTable = new HashSet<Integer>();
     private static boolean genX64Code = false;
 
     public CMinusCompiler() {
@@ -30,7 +30,7 @@ public class CMinusCompiler implements Compiler {
 
     public void compile(String filePrefix) throws CodeGenerationException, ParseException, DFAException {
 
-        String fileName = filePrefix + ".c";
+        String fileName = filePrefix + ".cm";
         try {
             Parser myParser = new CMinusParser(fileName);
 

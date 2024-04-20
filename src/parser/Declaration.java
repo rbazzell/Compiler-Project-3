@@ -1,6 +1,7 @@
 package parser;
 
 import lowlevel.CodeItem;
+import lowlevel.Function;
 
 public abstract class Declaration {
 
@@ -11,5 +12,5 @@ public abstract class Declaration {
 
      public abstract String print(int indent);
 
-     public abstract CodeItem genLLCode();
+     public abstract CodeItem genLLCode(Function currFunc) throws CodeGenerationException;
 }

@@ -1,7 +1,12 @@
 package parser;
 
-import lowlevel.CodeItem;
-import lowlevel.CodeItem;
+import lowlevel.BasicBlock;
+import lowlevel.Function;
+import lowlevel.Operation;
+import lowlevel.Operation.OperationType;
+import lowlevel.Operand;
+import lowlevel.Operand.OperandType;
+import compiler.CMinusCompiler;
 
 public class AssignExpression extends Expression {
 
@@ -20,8 +25,22 @@ public class AssignExpression extends Expression {
         return printStr;
     }
 
-    public CodeItem genLLCode(){
-
+    public Operation genLLCode(Function currFunc) throws CodeGenerationException{
+        if (CMinusCompiler.globalSymbolTable.contains(lhs.idStr.hashCode())) {
+            regNum = rhs.regNum;
+            //Generate store operation & append to currBlock
+            Operation store = new Operation(OperationType.STORE_I, currFunc.getCurrBlock());
+            Operand srcOp = new Operand(Operand.OperandType.REGISTER, regNum);
+            Operand destOp = new Operand(Operand.OperandType.STRING, lhs.idStr);
+            store.setSrcOperand(0, srcOp);
+            store.setDestOperand(0, destOp);
+            currFunc.getCurrBlock().appendOper(store);
+        } else if (currFunc.getTable().containsKey(lhs.idStr.hashCode())) {
+            regNum = lhs.regNum;
+        } else {
+            throw new CodeGenerationException("AssignExpression::genLLCode(): Variable not found in symbol table");
+        }
+        
         return null;
 
     }
