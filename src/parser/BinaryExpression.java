@@ -55,9 +55,9 @@ public class BinaryExpression extends Expression {
         return printString;
     }
 
-    public Operation genLLCode(Function currFunc) throws CodeGenerationException{
+    public void genLLCode(Function currFunc) throws CodeGenerationException{
 
-        return null;
+        return;
 
     }
 }

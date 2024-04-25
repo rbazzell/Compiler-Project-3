@@ -30,7 +30,7 @@ public class IDExpression extends Expression {
     }
 
     //idexpr.genCode is only called
-    public Operation genLLCode(Function currFunc) throws CodeGenerationException{
+    public void genLLCode(Function currFunc) throws CodeGenerationException{
         Operation loadOp = null;
         
         if (CMinusCompiler.globalSymbolTable.contains(idStr.hashCode())) {
@@ -55,6 +55,6 @@ public class IDExpression extends Expression {
             throw new CodeGenerationException("IDExpression.genLLCode(): ID not found in global or local symbol table!");
         }
         //Don't have to return anything because IDExpr creates its own load or makes no op
-        return null;
+        return;
     }
 }

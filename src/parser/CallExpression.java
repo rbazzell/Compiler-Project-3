@@ -23,9 +23,9 @@ public class CallExpression extends Expression {
         return printStr;
     }
 
-    public Operation genLLCode(Function currFunc) throws CodeGenerationException{
+    public void genLLCode(Function currFunc) throws CodeGenerationException{
 
-        return null;
+        return;
 
     }
 

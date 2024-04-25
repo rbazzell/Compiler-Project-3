@@ -21,5 +21,5 @@ public abstract class Expression {
 
     public abstract String print(int indent);
 
-    public abstract Operation genLLCode(Function currFunc) throws CodeGenerationException;
+    public abstract void genLLCode(Function currFunc) throws CodeGenerationException;
 }

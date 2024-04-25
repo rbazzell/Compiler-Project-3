@@ -25,7 +25,7 @@ public class AssignExpression extends Expression {
         return printStr;
     }
 
-    public Operation genLLCode(Function currFunc) throws CodeGenerationException{
+    public void genLLCode(Function currFunc) throws CodeGenerationException{
         if (CMinusCompiler.globalSymbolTable.contains(lhs.idStr.hashCode())) {
             regNum = rhs.regNum;
             //Generate store operation & append to currBlock
@@ -41,7 +41,7 @@ public class AssignExpression extends Expression {
             throw new CodeGenerationException("AssignExpression::genLLCode(): Variable not found in symbol table");
         }
         
-        return null;
+        return;
 
     }
 
