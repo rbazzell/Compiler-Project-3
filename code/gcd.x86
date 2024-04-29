@@ -1,0 +1,40 @@
+(FUNCTION  gcd  []
+  (BB 2
+  )
+  (BB 3
+    (OPER 11 Cmp [(m Flags)]  [(r 4)(r 3)])
+    (OPER 12 BNE []  [(bb 6)(m Flags)])
+  )
+  (BB 4
+    (OPER 6 Mov [(m EAX)]  [(r 0)])
+  )
+  (BB 1
+    (OPER 2 Return []  [(m EAX)])
+  )
+  (BB 6
+    (OPER 8 Mov [(m EAX)]  [(r 0)])
+    (OPER 10 Jmp []  [(bb 1)])
+  )
+)
+(FUNCTION  main  []
+  (BB 2
+  )
+  (BB 3
+    (OPER 4 JSR []  [(s input)] [(numParams 0)])
+    (OPER 5 Mov [(r 3)]  [(m EAX)])
+    (OPER 6 Mov [(r 4)]  [(r 3)])
+    (OPER 7 JSR []  [(s input)] [(numParams 0)])
+    (OPER 8 Mov [(r 5)]  [(m EAX)])
+    (OPER 9 Mov [(r 6)]  [(r 5)])
+    (OPER 17 Mov [(m EDI)]  [(r 7)])
+    (OPER 18 Mov [(m ESI)]  [(r 8)])
+    (OPER 12 JSR []  [(s gcd)(m EDI)(m ESI)] [(numParams 2)])
+    (OPER 13 Mov [(r 9)]  [(m EAX)])
+    (OPER 19 Mov [(m EDI)]  [(r 9)])
+    (OPER 15 JSR []  [(s output)(m EDI)] [(numParams 1)])
+    (OPER 16 Mov [(r 10)]  [(m EAX)])
+  )
+  (BB 1
+    (OPER 2 Return []  [(m EAX)])
+  )
+)

@@ -20,7 +20,7 @@ public class ExpressionStatement extends Statement {
 
     public void genLLCode(Function currFunc) throws CodeGenerationException{
         if (expr != null) {
-            currFunc.getCurrBlock().appendOper(expr.genLLCode(currFunc));
+            expr.genLLCode(currFunc);
         }
         return;
 

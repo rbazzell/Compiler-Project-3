@@ -1,6 +1,10 @@
 package parser;
 import lowlevel.Function;
 import lowlevel.BasicBlock;
+import lowlevel.Operation;
+import lowlevel.Operation.OperationType;
+import lowlevel.Operand;
+import lowlevel.Operand.OperandType;
 
 public class SelectionStatement extends Statement {
 
@@ -27,7 +31,7 @@ public class SelectionStatement extends Statement {
 
     public void genLLCode(Function currFunc) throws CodeGenerationException{
         
-        //Step 1: Creat Basic Blocks for Then, Post, and Else
+        //Step 1: Create Basic Blocks for Then, Post, and Else
         BasicBlock thenBlock = new BasicBlock(currFunc);
         BasicBlock postBlock = new BasicBlock(currFunc);
         BasicBlock elseBlock = null;
@@ -35,18 +39,52 @@ public class SelectionStatement extends Statement {
             elseBlock = new BasicBlock(currFunc);
         }
         //Step 2: Call genLLCode on the expression
-        thenBlock.appendOper(expr.genLLCode(currFunc));
-
+        expr.genLLCode(currFunc);
+        
         //Step 3: Add Branch to currBlock
-        //Step 4: Appen thenBlock to the BB chain
+        Operation branch = new Operation(OperationType.BEQ, currFunc.getCurrBlock());
+        Operand srcReg = new Operand(OperandType.REGISTER, expr.regNum);
+        Operand zero = new Operand(OperandType.INTEGER, 0);
+        Operand branchDest;
+        if(elseBlock != null){
+            branchDest = new Operand(OperandType.BLOCK, elseBlock.getBlockNum());
+        } else {
+            branchDest = new Operand(OperandType.BLOCK, postBlock.getBlockNum());
+        }
+        branch.setSrcOperand(0, srcReg);
+        branch.setSrcOperand(1, zero);
+        branch.setSrcOperand(2, branchDest);
+        currFunc.getCurrBlock().appendOper(branch);
+        
+        //Step 4: Append thenBlock to the BB chain
+        currFunc.appendToCurrentBlock(thenBlock);
+        
         //Step 5: currBlock = thenBlock
+        currFunc.setCurrBlock(thenBlock);
+        
         //Step 6: codeGen thenBlock
+        stmt.genLLCode(currFunc);
+        
         //Step 7: Append postBlock to the BB chain
-        //Step 8: currBlock = elseBlock
-        //Step 9: codeGen elseBlock
-        //Step 10: Append JMP-to-postBlock stmt to elseBlock
-        //Step 11: Add elseBlock to UC
+        currFunc.appendToCurrentBlock(postBlock);
+        
+        if (elseBlock != null) {
+            //Step 8: currBlock = elseBlock
+            currFunc.setCurrBlock(elseBlock);
+        
+            //Step 9: codeGen elseBlock
+            elseStmt.genLLCode(currFunc);
+            
+            //Step 10: Append JMP-to-postBlock stmt to elseBlock
+            Operation jump = new Operation(OperationType.JMP, currFunc.getCurrBlock());
+            Operand src = new Operand(OperandType.BLOCK, postBlock.getBlockNum());
+            jump.setSrcOperand(0, src);
+            currFunc.getCurrBlock().appendOper(jump);
+            //Step 11: Add elseBlock to UC
+            currFunc.appendUnconnectedBlock(elseBlock);
+        }
         //Step 12: currBlock = postBlock
+        currFunc.setCurrBlock(postBlock);
         return;
 
     }

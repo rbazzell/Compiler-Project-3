@@ -755,8 +755,9 @@ public class CMinusParser implements Parser {
                 System.err.println("COULD NOT OUTPUT TO FILE");
                 e.printStackTrace();
             }
+        } else {
+            System.out.println(output);
         }
-        System.out.println(output);
     }
 
     public static void main(String[] args) throws Exception {

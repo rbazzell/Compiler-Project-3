@@ -122,12 +122,13 @@ public class CMinusCompiler implements Compiler {
             }
 
         } catch (IOException ioe) {
+            System.err.println("FILE NOT FOUND");
         }
 
     }
 
     public static void main(String[] args) throws Exception{
-        String filePrefix = "test5";
+        String filePrefix = "testcode";
         CMinusCompiler myCompiler = new CMinusCompiler();
         myCompiler.setGenX64Code(true);
         myCompiler.compile(filePrefix);

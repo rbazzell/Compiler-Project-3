@@ -1,11 +1,9 @@
 package parser;
 
-import lowlevel.BasicBlock;
 import lowlevel.Function;
 import lowlevel.Operation;
 import lowlevel.Operation.OperationType;
 import lowlevel.Operand;
-import lowlevel.Operand.OperandType;
 import compiler.CMinusCompiler;
 
 public class AssignExpression extends Expression {
@@ -26,23 +24,29 @@ public class AssignExpression extends Expression {
     }
 
     public void genLLCode(Function currFunc) throws CodeGenerationException{
+        rhs.genLLCode(currFunc);
         if (CMinusCompiler.globalSymbolTable.contains(lhs.idStr.hashCode())) {
             regNum = rhs.regNum;
             //Generate store operation & append to currBlock
             Operation store = new Operation(OperationType.STORE_I, currFunc.getCurrBlock());
-            Operand srcOp = new Operand(Operand.OperandType.REGISTER, regNum);
-            Operand destOp = new Operand(Operand.OperandType.STRING, lhs.idStr);
-            store.setSrcOperand(0, srcOp);
-            store.setDestOperand(0, destOp);
+            Operand src1Op = new Operand(Operand.OperandType.REGISTER, regNum);
+            Operand src2Op = new Operand(Operand.OperandType.STRING, lhs.idStr);
+            store.setSrcOperand(0, src1Op);
+            store.setSrcOperand(1, src2Op);
             currFunc.getCurrBlock().appendOper(store);
-        } else if (currFunc.getTable().containsKey(lhs.idStr.hashCode())) {
+        } else if (currFunc.getTable().containsKey(lhs.idStr)) {
+            lhs.genLLCode(currFunc);
             regNum = lhs.regNum;
+            //Generate assign operation & append to currBlock
+            Operation assign = new Operation(OperationType.ASSIGN, currFunc.getCurrBlock());
+            Operand srcOp = new Operand(Operand.OperandType.REGISTER, rhs.regNum);
+            Operand destOp = new Operand(Operand.OperandType.REGISTER, regNum);
+            assign.setSrcOperand(0, srcOp);
+            assign.setDestOperand(0, destOp);
+            currFunc.getCurrBlock().appendOper(assign);
         } else {
             throw new CodeGenerationException("AssignExpression::genLLCode(): Variable not found in symbol table");
         }
-        
         return;
-
     }
-
 }

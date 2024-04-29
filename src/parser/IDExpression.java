@@ -46,9 +46,9 @@ public class IDExpression extends Expression {
 
             currFunc.getCurrBlock().appendOper(loadOp);
 
-        } else if (currFunc.getTable().containsKey(idStr.hashCode())) {
+        } else if (currFunc.getTable().containsKey(idStr)) {
             //In the local symbol table
-            regNum = currFunc.getNewRegNum();
+            regNum = currFunc.getTable().get(idStr);
 
         } else {
             //Not in global or local symbol table

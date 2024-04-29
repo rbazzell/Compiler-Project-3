@@ -116,17 +116,17 @@ public class X64AssemblyGenerator {
 			if (src0.getType() == Operand.OperandType.STRING) {
 			    outFile.print(((String) currOper.getSrcOperand(0).getValue()));
 			    if (src1 != null) {
-				if (src1.getType() == Operand.OperandType.INTEGER) {
-				    if (((Integer) src1.getValue()).intValue() != 0) {
-					outFile.print("+" + ((Integer) src1.getValue()).intValue());
-				    } else {
-					outFile.print("(%RIP)");
-				    }
-				} else if (src1.getType() == Operand.OperandType.MACRO) {
-				    outFile.print("(%" + src1.getValue() + ")");
-				} else {
-				    throw new X86CodegenException("assembleLoad: unexpected src1");
-				}
+					if (src1.getType() == Operand.OperandType.INTEGER) {
+						if (((Integer) src1.getValue()).intValue() != 0) {
+						outFile.print("+" + ((Integer) src1.getValue()).intValue());
+						} else {
+						outFile.print("(%RIP)");
+						}
+					} else if (src1.getType() == Operand.OperandType.MACRO) {
+						outFile.print("(%" + src1.getValue() + ")");
+					} else {
+						throw new X86CodegenException("assembleLoad: unexpected src1");
+					}
 			    } else {
 				outFile.print("(%RIP)");
 			    }

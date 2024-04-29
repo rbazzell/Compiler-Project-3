@@ -2,6 +2,7 @@ package parser;
 
 import lowlevel.Data;
 import lowlevel.FuncParam;
+import lowlevel.Function;
 
 public class Param {
 
@@ -23,7 +24,8 @@ public class Param {
         return printString;
     }
 
-    public FuncParam genLLCode() throws CodeGenerationException{
+    public FuncParam genLLCode(Function currFunc) throws CodeGenerationException{
+        currFunc.getTable().put(idStr, currFunc.getNewRegNum());
         return new FuncParam(Data.TYPE_INT, idStr, hasBrackets);
     }
 }

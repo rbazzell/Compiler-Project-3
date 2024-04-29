@@ -1,0 +1,46 @@
+(FUNCTION  gcd  []
+  (BB 2
+    (OPER 3 Func_Entry []  [])
+  )
+  (BB 3
+    (OPER 4 EQ [(r 5)]  [(r 4)(r 3)])
+    (OPER 5 BEQ []  [(r 5)(i 0)(bb 6)])
+  )
+  (BB 4
+    (OPER 6 Mov [(m RetReg)]  [(r 0)])
+  )
+  (BB 5
+  )
+  (BB 1
+    (OPER 1 Func_Exit []  [])
+    (OPER 2 Return []  [(m RetReg)])
+  )
+  (BB 6
+    (OPER 8 Mov [(m RetReg)]  [(r 0)])
+    (OPER 10 Jmp []  [(bb 5)])
+  )
+)
+(FUNCTION  main  []
+  (BB 2
+    (OPER 3 Func_Entry []  [])
+  )
+  (BB 3
+    (OPER 4 JSR []  [(s input)] [(numParams 0)])
+    (OPER 5 Mov [(r 3)]  [(m RetReg)])
+    (OPER 6 Mov [(r 4)]  [(r 3)])
+    (OPER 7 JSR []  [(s input)] [(numParams 0)])
+    (OPER 8 Mov [(r 5)]  [(m RetReg)])
+    (OPER 9 Mov [(r 6)]  [(r 5)])
+    (OPER 10 Pass []  [(r 7)] [(PARAM_NUM 0)])
+    (OPER 11 Pass []  [(r 8)] [(PARAM_NUM 1)])
+    (OPER 12 JSR []  [(s gcd)] [(numParams 2)])
+    (OPER 13 Mov [(r 9)]  [(m RetReg)])
+    (OPER 14 Pass []  [(r 9)] [(PARAM_NUM 0)])
+    (OPER 15 JSR []  [(s output)] [(numParams 1)])
+    (OPER 16 Mov [(r 10)]  [(m RetReg)])
+  )
+  (BB 1
+    (OPER 1 Func_Exit []  [])
+    (OPER 2 Return []  [(m RetReg)])
+  )
+)

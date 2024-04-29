@@ -1,0 +1,9 @@
+int main(void) {
+    int x;
+    int y;
+    x = 68;
+    y = 65;
+    putchar(x);
+    putchar(y);
+    return 0;
+}

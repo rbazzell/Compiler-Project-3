@@ -25,7 +25,7 @@ public class VariableDeclaration extends Declaration {
     public Data genLLCode(Function currFunc) throws CodeGenerationException{
         if(currFunc != null){
             //add to local symbol table
-            currFunc.getTable().put(id.hashCode(), currFunc.getNewRegNum());
+            currFunc.getTable().put(id, currFunc.getNewRegNum());
             //TODO: Maybe mess with VarSize???????
             //currFunc.setVarSize(currFunc.getVarSize() + 1);
             return null;

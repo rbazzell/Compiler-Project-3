@@ -2,8 +2,8 @@ int a;
 
 int addThem(int d, int e) {
   int f;
+  
   f = d + e;
-
   return f;
 }
 
@@ -122,7 +122,6 @@ int main (void) {
     i = 0;
   }
 
-
   if (i == 10) {
     putchar(99);
     putDigit(0);
@@ -137,7 +136,6 @@ int main (void) {
     printInt(i);
   }
   putchar(10);
-
   return 0;
 }
 

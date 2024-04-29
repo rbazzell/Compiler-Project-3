@@ -2,6 +2,11 @@ package parser;
 
 import java.util.ArrayList;
 import lowlevel.Function;
+import lowlevel.Operation;
+import lowlevel.Operation.OperationType;
+import lowlevel.Operand;
+import lowlevel.Operand.OperandType;
+import lowlevel.BasicBlock;
 import lowlevel.FuncParam;
 
 public class FunctionDeclaration extends Declaration {
@@ -36,24 +41,36 @@ public class FunctionDeclaration extends Declaration {
 
         //Generate parameter linked list
         FuncParam headParam = null;
+        currFunc = new Function(typeSpec.ordinal(), id);
+        
         if(params.size() != 0) {
-            headParam = params.get(0).genLLCode();
+            headParam = params.get(0).genLLCode(currFunc);
             FuncParam currParam = headParam;
             for (int i = 1; i < params.size(); i++) {
-                currParam.setNextParam(params.get(i).genLLCode());
+                currParam.setNextParam(params.get(i).genLLCode(currFunc));
                 currParam = currParam.getNextParam();
             }
+            
         }
-
+        currFunc.setFirstParam(headParam);
         //Generate function
-        Function func = new Function(typeSpec.ordinal(), id, headParam);
-        
-        func.createBlock0();
-        func.setCurrBlock(func.getFirstBlock());
+        currFunc.createBlock0();
+        //create new block, set as currblock
+        BasicBlock newBB = new BasicBlock(currFunc);
+        currFunc.appendBlock(newBB);      
+        currFunc.setCurrBlock(newBB);
         stmt.genLLCode(currFunc);
-        //TODO: Might need to do some setup or something weird to make genReturnBlock work. If problems ask Dr. G
-        func.genReturnBlock();
-        return func;
+        //TODO: Might need to do some setup or something weird to make getReturnBlock work. If problems ask Dr. G
+        currFunc.appendBlock(currFunc.getReturnBlock());
+        currFunc.setCurrBlock(currFunc.getReturnBlock());
+
+        //append unconnected chain
+        //TODO: MIGHT NOT BE NEEDED???? DOES HE TAKE CARE OF THIS FOR US?
+        if (currFunc.getFirstUnconnectedBlock() != null) {
+            currFunc.appendBlock(currFunc.getFirstUnconnectedBlock());
+            currFunc.setCurrBlock(currFunc.getLastBlock());
+        }
+        return currFunc;
 
     }
 }
